@@ -1,0 +1,4 @@
+langchain
+dotenv
+sklearn
+numpy

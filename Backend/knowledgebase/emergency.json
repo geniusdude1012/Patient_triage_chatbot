@@ -40,11 +40,32 @@
     "fever above 103",
     "fever above 104",
     "pregnancy bleeding",
-    "preterm labor",
     "broken bone",
     "bone sticking out",
     "deep wound",
     "head injury",
     "lost consciousness"
+  ],
+  "moderate": [
+    "mild headache",
+    "runny nose",
+    "slight cough",
+    "low-grade fever below 100.4",
+    "minor cut",
+    "small bruise",
+    "muscle soreness",
+    "fatigue without other symptoms",
+    "mild stomach upset",
+    "heartburn",
+    "minor rash",
+    "itchy skin",
+    "common cold symptoms",
+    "ear wax buildup",
+    "mild joint pain",
+    "sore throat without fever",
+    "stuffy nose",
+    "sneezing",
+    "mild diarrhea",
+    "constipation"
   ]
 }
