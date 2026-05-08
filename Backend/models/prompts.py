@@ -3,7 +3,7 @@ from langchain_core.prompts import (
     MessagesPlaceholder
 )
 from langchain_core.messages import SystemMessage
-from config.loaders import load_system_prompt
+from Backend.config.loaders import load_system_prompt
 
 system_prompt = load_system_prompt("system_prompt.txt")
 

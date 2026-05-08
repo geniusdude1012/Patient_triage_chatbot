@@ -13,8 +13,8 @@ Categories (in priority order):
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from config.loaders import EMERGENCY_KEYWORDS, URGENT_KEYWORDS, MODERATE_KEYWORDS
-from models.llm_models import embeddings_model
+from Backend.config.loaders import EMERGENCY_KEYWORDS, URGENT_KEYWORDS, MODERATE_KEYWORDS
+from Backend.models.llm_models import embeddings_model
 
 # ── Similarity threshold ───────────────────────────────────────────────────────
 # 0.92 = strict — only genuine matches pass

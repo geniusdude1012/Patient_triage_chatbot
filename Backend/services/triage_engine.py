@@ -13,13 +13,13 @@ Coordinates all services in the correct order:
 7. Append department block when LLM concludes
 """
 
-from services.symptom_extractor   import extract_symptoms
-from services.emergency_classifier import categorize, get_priority
-from services.department_matcher   import match_department
-from services.department_fallback  import get_llm_department
-from services.conversation_service import chat
-from utils.formatters              import format_emergency_response, format_department_block
-from utils.state_manager           import accumulated_symptoms
+from Backend.services.symptom_extractor   import extract_symptoms
+from Backend.services.emergency_classifier import categorize, get_priority
+from Backend.services.department_matcher   import match_department
+from Backend.services.department_fallback  import get_llm_department
+from Backend.services.conversation_service import chat
+from Backend.utils.formatters              import format_emergency_response, format_department_block
+from Backend.utils.state_manager           import accumulated_symptoms
 
 
 def process(user_input: str) -> str:

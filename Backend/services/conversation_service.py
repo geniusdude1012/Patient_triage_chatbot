@@ -7,8 +7,8 @@ so the LLM references the correct department in its response.
 """
 
 from langchain_core.messages import HumanMessage, AIMessage
-from chains.conversational_chain import chain
-from utils.state_manager import chat_history
+from Backend.chains.conversational_chain import chain
+from Backend.utils.state_manager import chat_history
 
 
 def chat(user_input: str, department: dict | None = None) -> str:

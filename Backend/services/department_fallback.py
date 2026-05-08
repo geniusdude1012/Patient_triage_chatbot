@@ -8,9 +8,9 @@ Returns a formatted department block string.
 """
 
 import json
-from models.llm_models import extractor_llm
-from models.prompts import build_department_fallback_prompt
-from utils.formatters import URGENCY_ICONS
+from Backend.models.llm_models import extractor_llm
+from Backend.models.prompts import build_department_fallback_prompt
+from Backend.utils.formatters import URGENCY_ICONS
 
 
 def get_llm_department(symptoms: list[str], priority: str) -> str:

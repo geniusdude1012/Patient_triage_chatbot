@@ -1,7 +1,7 @@
 import streamlit as st
 import uuid
-from Frontend.api_client import send_message, clear_session
-from Frontend.components.chat_ui import render_message
+from api_client import send_message, clear_session
+from components.chat_ui import render_message
 
 st.set_page_config(page_title="Patient Triage Assistant", page_icon="🏥")
 st.title("🏥 Patient Triage Assistant")

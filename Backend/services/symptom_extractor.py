@@ -5,8 +5,8 @@ Uses LLM to extract standardized medical symptoms
 from any natural language input — slang, informal, multilingual.
 """
 
-from models.llm_models import extractor_llm
-from models.prompts import build_symptom_extraction_prompt
+from Backend.models.llm_models import extractor_llm
+from Backend.models.prompts import build_symptom_extraction_prompt
 
 
 def extract_symptoms(user_input: str) -> list[str]:

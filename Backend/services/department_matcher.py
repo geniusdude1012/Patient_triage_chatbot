@@ -9,8 +9,8 @@ Returns the best matching department or None if no match found.
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from config.loaders import department_cfg
-from models.llm_models import embeddings_model
+from Backend.config.loaders import department_cfg
+from Backend.models.llm_models import embeddings_model
 
 # ── Similarity threshold ───────────────────────────────────────────────────────
 # Lower than emergency threshold — departments are broader matches

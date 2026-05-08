@@ -13,8 +13,8 @@ can hot-swap the system prompt without restarting.
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import SystemMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from config.loaders import system_prompt, load_system_prompt
-from models.llm_models import chat_llm
+from Backend.config.loaders import system_prompt, load_system_prompt
+from Backend.models.llm_models import chat_llm
 
 
 def _build_prompt(prompt_text: str) -> ChatPromptTemplate:
