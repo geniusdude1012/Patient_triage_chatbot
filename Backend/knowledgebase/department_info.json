@@ -1,0 +1,108 @@
+{
+  "Emergency": {
+    "handles": "Life-threatening conditions requiring immediate intervention",
+    "examples": [
+      "heart attack",
+      "stroke",
+      "severe bleeding",
+      "loss of consciousness"
+    ],
+    "available": "24/7",
+    "recommendation": "Please visit the emergency department immediately."
+  },
+  "General Medicine / OPD": {
+    "handles": "Common illnesses, fever, cold, minor infections",
+    "examples": ["fever", "cough", "headache", "fatigue"],
+    "available": "8AM - 6PM",
+    "recommendation": "Please visit the General Medicine OPD during 8AM–6PM or schedule an appointment for non-urgent checkup."
+  },
+  "Cardiology": {
+    "handles": "Heart-related conditions",
+    "examples": ["chest pain", "palpitations", "high blood pressure"],
+    "available": "9AM - 5PM",
+    "recommendation": "For new or worsening chest pain/palpitations, go to Emergency. For routine checkup or stable symptoms, schedule a Cardiology OPD visit between 9AM–5PM."
+  },
+  "Orthopedics": {
+    "handles": "Bone, joint, and muscle conditions",
+    "examples": ["fractures", "joint pain", "back pain", "sports injuries"],
+    "available": "9AM - 5PM",
+    "recommendation": "For suspected fractures or severe trauma, go to Emergency. For mild joint/back pain, visit Orthopedics OPD during 9AM–5PM for evaluation."
+  },
+  "Dental": {
+    "handles": "Teeth, gums, and oral health",
+    "examples": ["toothache", "cavity", "bleeding gums", "jaw pain"],
+    "available": "9AM - 5PM",
+    "recommendation": "For uncontrolled bleeding or facial swelling, go to Emergency. Otherwise, book an appointment with Dental OPD between 9AM–5PM."
+  },
+  "Neurology": {
+    "handles": "Brain and nervous system conditions",
+    "examples": ["severe headache", "seizure", "numbness", "stroke symptoms"],
+    "available": "9AM - 5PM",
+    "recommendation": "Sudden numbness, confusion, or stroke symptoms – go to Emergency immediately. For chronic headaches or follow-up, visit Neurology OPD during 9AM–5PM."
+  },
+  "Pediatrics": {
+    "handles": "Medical conditions in children under 18",
+    "examples": ["child fever", "child rash", "developmental concerns"],
+    "available": "8AM - 8PM",
+    "recommendation": "For high fever with lethargy or breathing difficulty, go to Pediatric Emergency. For routine checkups or mild symptoms, visit Pediatrics OPD between 8AM–8PM."
+  },
+  "Pulmonology": {
+    "handles": "Lung and respiratory conditions",
+    "examples": [
+      "asthma",
+      "breathing difficulty",
+      "chronic cough",
+      "pneumonia"
+    ],
+    "available": "9AM - 5PM",
+    "recommendation": "Severe breathing difficulty or bluish lips – go to Emergency. For asthma follow-up or chronic cough, schedule a Pulmonology OPD visit (9AM–5PM)."
+  },
+  "Gastroenterology": {
+    "handles": "Digestive system conditions",
+    "examples": ["abdominal pain", "vomiting", "diarrhea", "acidity"],
+    "available": "9AM - 5PM",
+    "recommendation": "Severe abdominal pain, bloody vomit/stool – go to Emergency. For acidity or mild diarrhea, visit Gastroenterology OPD during 9AM–5PM."
+  },
+  "Ophthalmology": {
+    "handles": "Eye conditions",
+    "examples": ["eye pain", "blurred vision", "redness", "eye infection"],
+    "available": "9AM - 5PM",
+    "recommendation": "Sudden vision loss or chemical exposure – go to Emergency. For redness or mild pain, schedule an Ophthalmology OPD visit (9AM–5PM)."
+  },
+  "ENT": {
+    "handles": "Ear, nose, and throat conditions",
+    "examples": ["ear pain", "hearing loss", "sore throat", "sinus issues"],
+    "available": "9AM - 5PM",
+    "recommendation": "Severe throat swelling or inability to swallow – go to Emergency. For ear pain or sinus issues, visit ENT OPD between 9AM–5PM."
+  },
+  "Dermatology": {
+    "handles": "Skin conditions",
+    "examples": ["rash", "acne", "eczema", "allergic skin reactions"],
+    "available": "9AM - 5PM",
+    "recommendation": "For rash with difficulty breathing or swollen lips/face – go to Emergency. For acne or eczema, schedule a Dermatology OPD visit (9AM–5PM)."
+  },
+  "Psychiatry": {
+    "handles": "Mental health conditions",
+    "examples": ["anxiety", "depression", "panic attacks", "suicidal thoughts"],
+    "available": "9AM - 5PM, Crisis line 24/7",
+    "recommendation": "If suicidal thoughts or immediate crisis – call crisis line (24/7) or go to Emergency. For anxiety/depression, schedule a Psychiatry OPD appointment (9AM–5PM)."
+  },
+  "Urology": {
+    "handles": "Urinary tract and kidney conditions",
+    "examples": ["urinary pain", "blood in urine", "kidney stones"],
+    "available": "9AM - 5PM",
+    "recommendation": "Severe flank pain with inability to urinate – go to Emergency. For blood in urine or mild UTI symptoms, visit Urology OPD during 9AM–5PM."
+  },
+  "Gynecology": {
+    "handles": "Female reproductive health",
+    "examples": ["irregular periods", "pregnancy concerns", "pelvic pain"],
+    "available": "9AM - 5PM",
+    "recommendation": "Severe pelvic pain, heavy bleeding, or possible ectopic pregnancy – go to Emergency. For routine Pap smear or irregular periods, schedule a Gynecology OPD visit (9AM–5PM)."
+  },
+  "Endocrinology": {
+    "handles": "Hormonal and metabolic conditions",
+    "examples": ["diabetes", "thyroid issues", "hormonal imbalance"],
+    "available": "9AM - 5PM",
+    "recommendation": "For severe hypoglycemia (unconsciousness) or thyroid storm (fever + rapid pulse) – go to Emergency. For diabetes or thyroid follow-up, visit Endocrinology OPD between 9AM–5PM."
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "critical": [
+  "emergency": [
     "chest pain",
     "heart attack",
     "can't breathe",
@@ -23,7 +23,7 @@
     "diabetic coma",
     "unconscious diabetic"
   ],
-  "high_priority": [
+  "urgent": [
     "severe chest",
     "crushing chest",
     "left arm pain",
@@ -46,7 +46,7 @@
     "head injury",
     "lost consciousness"
   ],
-  "moderate": [
+  "routine": [
     "mild headache",
     "runny nose",
     "slight cough",
