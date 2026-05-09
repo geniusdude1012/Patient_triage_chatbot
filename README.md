@@ -239,7 +239,7 @@ Goodbye! Stay safe.
 
 ---
 
-### Option 3 — Docker (Recommended)
+### Option 3 — Docker
 
 No Python setup needed. Just Docker Desktop and your API key.
 
@@ -252,7 +252,7 @@ No Python setup needed. Just Docker Desktop and your API key.
 
 ```bash
 # 1. Clone the repo
-git clone <your-repo-url>
+git clone https://github.com/geniusdude1012/Patient_triage_chatbot.git
 cd Patient_triage_chatbot
 
 # 2. Create your .env file
