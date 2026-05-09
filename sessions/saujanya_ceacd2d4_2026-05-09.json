@@ -1,0 +1,52 @@
+{
+  "username": "saujanya",
+  "session_id": "ceacd2d4-5c19-463a-9a38-22b6df5ae29b",
+  "start_time": "2026-05-09 21:49:58",
+  "end_time": "2026-05-09 21:51:13",
+  "final_priority": "low",
+  "symptoms_collected": [
+    "toothache"
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "toothache for two days",
+      "time": "21:50:15"
+    },
+    {
+      "role": "bot",
+      "content": "I'm sorry to hear about your toothache. Can you tell me how severe the pain is on a scale from 1 to 10?",
+      "time": "21:50:18"
+    },
+    {
+      "role": "user",
+      "content": "Five.",
+      "time": "21:50:31"
+    },
+    {
+      "role": "bot",
+      "content": "How long have you been experiencing this toothache?",
+      "time": "21:50:33"
+    },
+    {
+      "role": "user",
+      "content": "Two days.",
+      "time": "21:50:45"
+    },
+    {
+      "role": "bot",
+      "content": "Thank you for sharing that. Have you noticed any swelling or redness around the tooth?",
+      "time": "21:50:48"
+    },
+    {
+      "role": "user",
+      "content": "Yes, I have witnessed that.",
+      "time": "21:51:00"
+    },
+    {
+      "role": "bot",
+      "content": "Urgency: Urgent\nAction: It's important to address this toothache promptly. I recommend booking an appointment with a dentist as soon as possible to have it checked out.\nDisclaimer: This is AI-assisted triage and not a medical diagnosis.\n─────────────────────────────────────\n🏥 DEPARTMENT ROUTING\n─────────────────────────────────────\nDepartment:     Dental\nHandles:        Teeth, gums, and oral health\nAvailable:      9AM - 5PM\nUrgency:        🟢 Routine\nRecommendation: For uncontrolled bleeding or facial swelling, go to Emergency. Otherwise, book an appointment with Dental OPD between 9AM–5PM.\n─────────────────────────────────────\n⚠️  This is AI-assisted triage, not a medical diagnosis.\n",
+      "time": "21:51:03"
+    }
+  ]
+}

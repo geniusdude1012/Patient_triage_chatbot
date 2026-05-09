@@ -8,6 +8,10 @@ Single place for all API communication.
 import httpx
 
 API_URL = "http://localhost:8000/api"
+import sys, os
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
 
 def send_message(message: str, session_id: str, username: str = "") -> dict:

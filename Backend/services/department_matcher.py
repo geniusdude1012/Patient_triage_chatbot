@@ -14,8 +14,7 @@ from Backend.models.llm_models import embeddings_model
 
 # ── Similarity threshold ───────────────────────────────────────────────────────
 # Lower than emergency threshold — departments are broader matches
-DEPT_THRESHOLD = 0.82
-
+DEPT_THRESHOLD = 0.88
 # ── Pre-embed all department examples at startup ───────────────────────────────
 print("   Embedding department keywords...", end=" ")
 
