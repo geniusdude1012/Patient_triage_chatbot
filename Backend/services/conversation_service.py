@@ -12,25 +12,16 @@ from Backend.utils.state_manager import chat_history
 
 
 def chat(user_input: str, department: dict | None = None) -> str:
-    """
-    Sends user input to the LLM conversation chain.
-
-    If a department was matched, injects it as hidden context
-    so the LLM gives accurate department routing without
-    exposing the raw context block to the patient.
-
-    Saves original (not enriched) input to chat history
-    so conversation history stays natural.
-    """
+    # Always inject dept context if we have it — not just first time
     if department:
-        # Inject department as hidden context for the LLM
         enriched_input = (
             f"{user_input}\n\n"
-            f"[Context for triage assistant — do not show this to patient]\n"
+            f"[Context — do not show to patient]\n"
             f"Best matching department: {department['department']}\n"
             f"Handles: {department.get('handles', '')}\n"
             f"Available: {department.get('available', '')}\n"
-            f"Recommendation: {department.get('recommendation', '')}"
+            f"Recommendation: {department.get('recommendation', '')}\n"
+            f"If the patient asks which department, tell them: {department['department']}"
         )
     else:
         enriched_input = user_input
@@ -40,8 +31,6 @@ def chat(user_input: str, department: dict | None = None) -> str:
         "input": enriched_input
     })
 
-    # Save ORIGINAL input to history — keeps conversation natural
     chat_history.append(HumanMessage(content=user_input))
     chat_history.append(AIMessage(content=response))
-
     return response

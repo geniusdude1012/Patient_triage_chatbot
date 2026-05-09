@@ -50,53 +50,44 @@ def process(user_input: str) -> str:
     """
     print("\n" + "─" * 45)
 
-    # ── Step 1: Extract symptoms from current message ──────────────────────────
     symptoms = extract_symptoms(user_input)
     print(f"   [Extracted]   {symptoms if symptoms else 'none detected'}")
 
-    # ── Step 2: Accumulate symptoms across conversation turns ──────────────────
     for s in symptoms:
         if s not in accumulated_symptoms:
             accumulated_symptoms.append(s)
     print(f"   [Accumulated] {accumulated_symptoms}")
 
-    # ── Step 3: Classify against emergency.json ────────────────────────────────
     categorized = categorize(accumulated_symptoms)
-    print(
-        f"   [Classified]  "
-        f"emergency={categorized['emergency']} | "
-        f"urgent={categorized['urgent']} | "
-        f"routine={categorized['routine']} | "
-        f"unknown={categorized['unknown']}"
-    )
-
-    # ── Step 4: Get highest priority level ─────────────────────────────────────
-    priority = get_priority(categorized)
+    priority    = get_priority(categorized)
     print(f"   [Priority]    {priority.upper()}")
 
-    # ── Step 5: Match department via embeddings ────────────────────────────────
     dept_match = match_department(accumulated_symptoms)
     print(f"   [Department]  {dept_match['department'] if dept_match else 'none matched'}")
 
-    # ── Step 6: Instant response for emergency / urgent ────────────────────────
+    # Instant response for emergency/urgent
     instant = format_emergency_response(priority, categorized)
     if instant:
         dept_block = _get_dept_block(dept_match, accumulated_symptoms, priority)
         return instant + dept_block
 
-    # ── Step 7: LLM conversation for routine / low ─────────────────────────────
+    # ── Check if user is explicitly asking about department ───────────────────
+    dept_keywords = ["department", "where", "which department", "which doctor", "where to go"]
+    user_asking_dept = any(kw in user_input.lower() for kw in dept_keywords)
+
     print(f"   [Routing]     LLM conversation")
     llm_response = chat(user_input, dept_match)
 
-    # Show department block only when LLM stops asking questions
-    # (i.e. response has no "?" — LLM has concluded triage)
-    if "?" in llm_response or not accumulated_symptoms:
-        print(f"   [Dept Block]  Suppressed — LLM still gathering info")
-        return llm_response
+    # Show dept block if:
+    # 1. LLM has stopped asking questions (no "?" in response), OR
+    # 2. User explicitly asked about department
+    if "?" not in llm_response or user_asking_dept:
+        print(f"   [Dept Block]  Appending")
+        dept_block = _get_dept_block(dept_match, accumulated_symptoms, priority)
+        return llm_response + dept_block
 
-    print(f"   [Dept Block]  Appending — LLM concluded")
-    dept_block = _get_dept_block(dept_match, accumulated_symptoms, priority)
-    return llm_response + dept_block
+    print(f"   [Dept Block]  Suppressed — LLM still asking questions")
+    return llm_response
 
 
 def _get_dept_block(dept_match: dict | None, symptoms: list, priority: str) -> str:
