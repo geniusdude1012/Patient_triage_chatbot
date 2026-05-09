@@ -78,6 +78,7 @@ The system combines **rule-based emergency detection** with **LLM-powered conver
 Patient_triage_chatbot/
 │
 ├── Frontend/
+│   ├── Dockerfile
 │   ├── app.py                        # Main Streamlit UI entry point
 │   ├── api_client.py                 # All HTTP calls to FastAPI
 │   └── components/
@@ -86,6 +87,7 @@ Patient_triage_chatbot/
 │       └── voice_input.py            # Mic recorder + Whisper transcription
 │
 ├── Backend/
+│   ├── Dockerfile
 │   ├── api/
 │   │   ├── app.py                    # FastAPI app + CORS + router setup
 │   │   ├── schemas.py                # Pydantic request/response models
@@ -123,29 +125,35 @@ Patient_triage_chatbot/
 │
 ├── sessions/                         # Auto-created — saved session JSON files
 ├── system_prompt.txt                 # LLM personality and triage rules
+├── main.py                           # CLI entry point (terminal chatbot)
+├── docker-compose.yml
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## Setup Instructions
+## Running Options
 
-### Prerequisites
+There are three ways to run this project. Choose whichever fits your setup.
+
+---
+
+### Option 1 — Manual Setup (Web UI)
+
+**Prerequisites**
 
 - Python 3.10+
 - An OpenAI API key
 
-### 1. Clone the repository
+**Steps**
 
 ```bash
-git clone <your-repo-url>
+# 1. Clone the repo
+git clone https://github.com/geniusdude1012/Patient_triage_chatbot.git
 cd Patient_triage_chatbot
-```
 
-### 2. Create a virtual environment
-
-```bash
+# 2. Create and activate virtual environment
 python -m venv venv
 
 # Windows
@@ -153,43 +161,154 @@ venv\Scripts\activate
 
 # Mac / Linux
 source venv/bin/activate
-```
 
-### 3. Install dependencies
-
-```bash
+# 3. Install dependencies
 pip install -r requirements.txt
-```
 
-### 4. Set up environment variables
+# 4. Create .env file
+echo OPENAI_API_KEY=sk-your-key-here > .env
 
-Create a `.env` file in the project root:
-
-```
-OPENAI_API_KEY=sk-your-openai-key-here
-```
-
-### 5. Run the FastAPI backend
-
-```bash
-# From the project root
+# 5. Start the FastAPI backend (terminal 1)
 uvicorn Backend.api.app:app --reload
-```
 
-API will be available at `http://localhost:8000`
-
-### 6. Run the Streamlit frontend
-
-Open a second terminal:
-
-```bash
-# From the project root
+# 6. Start the Streamlit frontend (terminal 2)
 streamlit run Frontend/app.py
 ```
 
-App will open at `http://localhost:8501`
+Open http://localhost:8501 in your browser.
 
-### 7. Using the chatbot
+---
+
+### Option 2 — CLI (Terminal Chatbot)
+
+Run the chatbot directly in your terminal without any web interface. No frontend needed.
+
+```bash
+# From the project root (with venv activated and .env set)
+python main.py
+```
+
+**Available commands**
+
+| Command  | Action                     |
+| -------- | -------------------------- |
+| `quit`   | Exit the chatbot           |
+| `clear`  | Reset conversation history |
+| `reload` | Reload system_prompt.txt   |
+
+**Example session**
+
+```
+==================================================
+        Patient Triage Chatbot
+  'quit'   → exit
+  'clear'  → reset conversation
+  'reload' → reload system_prompt.txt
+==================================================
+
+Welcome! I am a patient triage assistant.
+How can I assist you today?
+
+You: I have chest pain and difficulty breathing
+
+🔴 EMERGENCY DETECTED
+─────────────────────────────────────
+Detected:   chest pain
+Urgency:    CRITICAL
+Department: Emergency / Immediate Care
+Action:     Call emergency services NOW
+            or go to the ER immediately.
+─────────────────────────────────────
+⚠️  This is AI-assisted triage, not a medical diagnosis.
+
+─────────────────────────────────────
+🏥 DEPARTMENT ROUTING
+─────────────────────────────────────
+Department:     Cardiology
+Handles:        Heart-related conditions
+Available:      9AM - 5PM
+Urgency:        🔴 Emergency
+Recommendation: For new or worsening chest pain, go to Emergency immediately.
+─────────────────────────────────────
+
+You: quit
+Goodbye! Stay safe.
+```
+
+> **Note:** CLI mode uses the same AI pipeline but does not save session history to a JSON file and does not support voice input.
+
+---
+
+### Option 3 — Docker (Recommended)
+
+No Python setup needed. Just Docker Desktop and your API key.
+
+**Prerequisites**
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- An OpenAI API key
+
+**Steps**
+
+```bash
+# 1. Clone the repo
+git clone <your-repo-url>
+cd Patient_triage_chatbot
+
+# 2. Create your .env file
+echo OPENAI_API_KEY=sk-your-key-here > .env
+
+# 3. Build and start everything
+docker compose up --build
+```
+
+Open your browser:
+
+| Service  | URL                        |
+| -------- | -------------------------- |
+| Frontend | http://localhost:8501      |
+| Backend  | http://localhost:8000      |
+| API Docs | http://localhost:8000/docs |
+
+**Stop the app**
+
+```bash
+docker compose down
+```
+
+**Remove images too**
+
+```bash
+docker compose down --rmi all
+```
+
+**How the containers communicate**
+
+```
+Your Browser
+     ↓
+localhost:8501  →  triage_frontend (Streamlit)
+                          ↓
+                 http://backend:8000   ← internal Docker network
+                          ↓
+                 triage_backend (FastAPI)
+                          ↓
+                 OpenAI API (internet)
+```
+
+The frontend and backend talk over Docker's internal network using the service name `backend`. This is configured automatically — no extra setup needed.
+
+In Docker Desktop you will see:
+
+```
+Containers
+├── triage_backend    ● Running    0.0.0.0:8000
+└── triage_frontend   ● Running    0.0.0.0:8501
+```
+
+---
+
+## Using the Web App
 
 1. Enter your name on the welcome page and click **Start Consultation**
 2. Describe your symptoms by typing or using the mic button
