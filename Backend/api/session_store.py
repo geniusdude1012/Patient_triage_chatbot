@@ -27,14 +27,16 @@ def get_session(session_id: str) -> dict:
     """
     if session_id not in sessions:
         sessions[session_id] = {
-            "chat_history":         [],
-            "accumulated_symptoms": [],
-            "username":             "",
-            "start_time":           datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "session_id":           session_id,
-            "messages":             [],
-            "last_priority":        "low"
-        }
+        "chat_history":          [],
+        "accumulated_symptoms":  [],
+        "username":              "",
+        "start_time":            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "session_id":            session_id,
+        "messages":              [],
+        "last_priority":         "low",
+        "awaiting_appointment":  False,   
+        "last_department":       ""       
+    }
     return sessions[session_id]
 
 
