@@ -1,20 +1,11 @@
-"""
-utils/formatters.py
-────────────────────
-All response formatting functions.
 
-Uses markdown formatting so responses render cleanly
-inside Streamlit chat bubbles — tables, bold, blockquotes.
-"""
-
-# ── Urgency level display labels ──────────────────────────────────────────────
+# ── Urgency level display labels 
 URGENCY_ICONS = {
     "emergency": "🔴 Emergency",
     "urgent":    "🟠 Urgent",
     "routine":   "🟡 Routine",
     "low":       "🟢 Routine"
 }
-
 
 def format_emergency_response(priority: str, categorized: dict) -> str | None:
     """
@@ -33,6 +24,8 @@ def format_emergency_response(priority: str, categorized: dict) -> str | None:
             "> 🚨 **Action:** Call emergency services (911) NOW "
             "or go to the ER immediately.\n\n"
             "> ⚠️ *This is AI-assisted triage, not a medical diagnosis.*\n"
+            f"> \n *Please press the New Chat Button to end and start new session*\n"
+            f"> \n *Please press the Clear Conversation Button to clear the conversation*\n"
         )
 
     if priority == "urgent":
@@ -47,6 +40,8 @@ def format_emergency_response(priority: str, categorized: dict) -> str | None:
             "> ⚡ **Action:** Seek medical attention today. "
             "Do not wait — visit urgent care now.\n\n"
             "> ⚠️ *This is AI-assisted triage, not a medical diagnosis.*\n"
+            f"> \n *Please press the New Chat Button to end and start new session*\n"
+            f"> \n *Please press the Clear Conversation Button to clear the conversation*\n"
         )
 
     return None
@@ -71,6 +66,8 @@ def format_department_block(dept_match: dict, priority: str) -> str:
         f"| **Urgency** | {URGENCY_ICONS.get(priority, '🟢 Routine')} |\n\n"
         f"> 📋 **Recommendation:** {dept_match.get('recommendation', 'Please visit this department.')}\n\n"
         f"> ⚠️ *This is AI-assisted triage, not a medical diagnosis.*\n"
+        f"> \n *Please press the New Chat Button to end and start new session*\n"
+        f"> \n *Please press the Clear Conversation Button to clear the conversation*\n"
     )
 
 
@@ -90,4 +87,6 @@ def format_llm_department_block(dept: dict, priority: str) -> str:
         f"| **Urgency** | {URGENCY_ICONS.get(priority, '🟢 Routine')} |\n\n"
         f"> 📋 **Recommendation:** {dept.get('recommendation', 'Please visit this department.')}\n\n"
         f"> ⚠️ *This is AI-assisted triage, not a medical diagnosis.*\n"
+        f"> \n *Please press the New Chat Button to end and start new session*\n"
+        f"> \n *Please press the Clear Conversation Button to clear the conversation*\n"
     )

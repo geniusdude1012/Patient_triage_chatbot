@@ -1,14 +1,3 @@
-"""
-chains/conversational_chain.py
-────────────────────────────────
-Builds and exports the main LangChain conversation chain.
-
-Chain structure:
-    prompt → chat_llm → StrOutputParser
-
-Also exports rebuild_chain() so reload_prompt() in main.py
-can hot-swap the system prompt without restarting.
-"""
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import SystemMessage
@@ -26,8 +15,8 @@ def _build_prompt(prompt_text: str) -> ChatPromptTemplate:
     ])
 
 
-# ── Build the chain at startup ────────────────────────────────────────────────
-_prompt = _build_prompt(system_prompt)   # ← use the loaded string directly
+# ── Build the chain at startup 
+_prompt = _build_prompt(system_prompt)   
 chain   = _prompt | chat_llm | StrOutputParser()
 
 

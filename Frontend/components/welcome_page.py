@@ -1,11 +1,3 @@
-"""
-Frontend/components/welcome_page.py
-─────────────────────────────────────
-Welcome landing page shown before the chatbot starts.
-Patient enters their name and clicks Start.
-Sets session_state.username and session_state.started = True.
-"""
-
 import streamlit as st
 from api_client import start_session  
 
@@ -15,8 +7,7 @@ def show_welcome_page():
     Renders the full welcome page.
     Called from app.py when st.session_state.started is False.
     """
-
-    # ── Centered layout ────────────────────────────────────────────────────────
+    
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -38,7 +29,6 @@ def show_welcome_page():
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # ── Name input form ────────────────────────────────────────────────────
         with st.form("welcome_form", clear_on_submit=False):
             name = st.text_input(
                 "Your name",
@@ -57,7 +47,7 @@ def show_welcome_page():
                  else:
                     st.session_state.username = name.strip()
                     st.session_state.started  = True
-                    # ✅ Call API BEFORE rerun — not after
+                
                     start_session(st.session_state.session_id, name.strip())
                     st.rerun()
 

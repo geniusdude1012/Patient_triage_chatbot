@@ -1,19 +1,3 @@
-"""
-Backend/api/session_store.py
-──────────────────────────────
-In-memory session storage.
-Each session_id maps to a dict holding:
-- chat_history        : LangChain message objects
-- accumulated_symptoms: symptoms across all turns
-- username            : patient name from welcome page
-- start_time          : when session started
-- session_id          : stored for history_writer access
-- messages            : full {role, content, time} log for JSON export
-- last_priority       : final triage priority for history file
-
-In production: replace with Redis.
-"""
-
 from datetime import datetime
 
 sessions: dict = {}

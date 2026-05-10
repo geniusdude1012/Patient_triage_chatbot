@@ -1,17 +1,8 @@
-"""
-config/loaders.py
-─────────────────
-Responsible for loading all external files:
-- JSON knowledge base files
-- System prompt text file
-
-All paths are resolved relative to the project root.
-"""
 
 import os
 import json
 
-# ── Project root (two levels up from this file) ───────────────────────────────
+# ── Project root (two levels up from this file) 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
@@ -33,12 +24,12 @@ def load_system_prompt(filepath: str = "system_prompt.txt") -> str:
         return f.read().strip()
 
 
-# ── Load all knowledge base files at import time ──────────────────────────────
+# ── Load all knowledge base files at import time 
 emergency_cfg   = load_json("Backend/knowledgebase/emergency.json")
 department_cfg  = load_json("Backend/knowledgebase/department_info.json")
 system_prompt   = load_system_prompt("system_prompt.txt")
 
-# ── Emergency keyword lists ───────────────────────────────────────────────────
+# ── Emergency keyword lists 
 EMERGENCY_KEYWORDS = emergency_cfg["emergency"]
 URGENT_KEYWORDS    = emergency_cfg["urgent"]
 MODERATE_KEYWORDS  = emergency_cfg["routine"]

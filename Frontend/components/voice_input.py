@@ -1,11 +1,3 @@
-"""
-Frontend/components/voice_input.py
-────────────────────────────────────
-Inline mic button styled to sit beside the chat input.
-Uses st.audio_input with a unique key to avoid duplicate ID error.
-Transcribes via OpenAI Whisper and returns text.
-"""
-
 import streamlit as st
 import sys
 import os
@@ -22,7 +14,7 @@ def show_voice_input(key: str = "voice_input_main") -> str | None:
     Renders a compact mic recorder with unique key.
     Returns transcribed text or None.
     """
-    # ── Inject CSS to make audio_input look like a mic icon ───────────────────
+    # Inject CSS to make audio_input look like a mic icon 
     st.markdown("""
         <style>
         /* Hide the default audio_input label */

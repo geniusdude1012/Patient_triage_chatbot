@@ -1,25 +1,9 @@
-"""
-Backend/utils/history_writer.py
-─────────────────────────────────
-Saves a completed patient session to a JSON file.
-
-Called when patient clicks End Session.
-File saved as: sessions/Username_sessionid_date.json
-
-Each file contains:
-- username, session_id
-- start_time, end_time
-- final_priority
-- symptoms_collected
-- full message history
-"""
-
 import os
 import json
 from datetime import datetime
 
 
-# ── Sessions folder (project root / sessions) ─────────────────────────────────
+# ── Sessions folder 
 SESSIONS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
     "sessions"
@@ -54,13 +38,13 @@ def save_session(session: dict) -> str:
         "messages":            session.get("messages", [])
     }
 
-    # ── Build filename ─────────────────────────────────────────────────────────
+    # ── Build filename 
     safe_username = "".join(c for c in username if c.isalnum() or c in "_-")
     short_id      = session_id[:8]
     filename      = f"{safe_username}_{short_id}_{date_str}.json"
     filepath      = os.path.join(SESSIONS_DIR, filename)
 
-    # ── Write to file ──────────────────────────────────────────────────────────
+    # ── Write to file 
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 

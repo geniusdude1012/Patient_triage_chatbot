@@ -1,17 +1,3 @@
-"""
-services/triage_engine.py
-──────────────────────────
-Master pipeline orchestrator.
-
-Coordinates all services in the correct order:
-1. Extract symptoms from user input
-2. Accumulate symptoms across conversation turns
-3. Classify symptoms against emergency.json
-4. Match department from department_info.json
-5. Return instant response for emergency/urgent cases
-6. Route to LLM conversation for routine/low cases
-7. Append department block when LLM concludes
-"""
 
 from Backend.services.symptom_extractor   import extract_symptoms
 from Backend.services.emergency_classifier import categorize, get_priority
@@ -25,28 +11,7 @@ from Backend.utils.state_manager           import accumulated_symptoms
 def process(user_input: str) -> str:
     """
     Full triage pipeline — called for every user message.
-
-    Flow:
-    ┌─────────────────────────────────────────┐
-    │  User input                              │
-    │       ↓                                  │
-    │  1. Extract symptoms (LLM)               │
-    │       ↓                                  │
-    │  2. Accumulate across turns              │
-    │       ↓                                  │
-    │  3. Classify → emergency / urgent /      │
-    │                routine / unknown         │
-    │       ↓                                  │
-    │  4. Match department (embeddings)        │
-    │       ↓                                  │
-    │  Emergency/Urgent                        │
-    │    → instant structured response        │
-    │    → + department block                 │
-    │                                          │
-    │  Routine/Low                             │
-    │    → LLM conversation                   │
-    │    → + department block (after final)   │
-    └─────────────────────────────────────────┘
+    
     """
     print("\n" + "─" * 45)
 
@@ -71,7 +36,7 @@ def process(user_input: str) -> str:
         dept_block = _get_dept_block(dept_match, accumulated_symptoms, priority)
         return instant + dept_block
 
-    # ── Check if user is explicitly asking about department ───────────────────
+    # ── Check if user is explicitly asking about department 
     dept_keywords = ["department", "where", "which department", "which doctor", "where to go"]
     user_asking_dept = any(kw in user_input.lower() for kw in dept_keywords)
 

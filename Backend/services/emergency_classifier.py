@@ -1,15 +1,3 @@
-"""
-services/emergency_classifier.py
-──────────────────────────────────
-Classifies extracted symptoms against emergency.json using
-OpenAI embeddings + cosine similarity.
-
-Categories (in priority order):
-    emergency  → life-threatening, call 911
-    urgent     → same-day care required
-    routine    → non-urgent, schedule in 1-2 days
-    unknown    → no match found
-"""
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity

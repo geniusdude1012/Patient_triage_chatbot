@@ -11,18 +11,16 @@ import sys
 import numpy as np
 from unittest.mock import patch, MagicMock
 
-# ── Set dummy env BEFORE any Backend imports ───────────────────────────────────
+# ── Set dummy env BEFORE any Backend imports 
 os.environ["OPENAI_API_KEY"] = "sk-test-dummy-key"
 
-# ── Dummy embedding — used by all mocks ───────────────────────────────────────
+# ── Dummy embedding — used by all mocks 
 DUMMY_EMBEDDING  = [[0.1] * 1536]
 DUMMY_EMBEDDINGS = [[0.1] * 1536] * 50   # enough for all keyword lists
 
-
-# ══════════════════════════════════════════════════════════════════════════════
 # TEST 1 — Appointment yes/no intent detection
 # Pure Python logic — no imports needed, no mocking needed
-# ══════════════════════════════════════════════════════════════════════════════
+
 def test_appointment_intent_detection():
     """
     Patient saying yes/sure/ok must trigger booking.
@@ -47,10 +45,10 @@ def test_appointment_intent_detection():
     print("✅ Appointment intent detection passed")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # TEST 2 — Department extraction from markdown response
 # Pure Python string parsing — no API calls needed
-# ══════════════════════════════════════════════════════════════════════════════
+
 def test_department_extraction_from_response():
     """
     Markdown table must correctly yield the department name.
@@ -94,10 +92,10 @@ def test_department_extraction_from_response():
     print("✅ Department extraction passed")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # TEST 3 — Priority detection from emoji in response text
 # Pure Python logic — no API calls needed
-# ══════════════════════════════════════════════════════════════════════════════
+# 
 def test_priority_detection_from_response_emojis():
     """
     Priority must be correctly detected from emoji in bot response.
@@ -117,10 +115,10 @@ def test_priority_detection_from_response_emojis():
     print("✅ Priority detection from emoji passed")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # TEST 4 — Session store creates correct structure
 # Mocks embeddings so no OpenAI call is made at import time
-# ══════════════════════════════════════════════════════════════════════════════
+
 def test_session_store_create_and_retrieve():
     """
     Session store must create session with all required fields.
@@ -171,10 +169,10 @@ def test_session_store_create_and_retrieve():
         print("✅ Session store test passed")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # TEST 5 — Emergency response formatting
 # Pure Python string formatting — no API calls needed
-# ══════════════════════════════════════════════════════════════════════════════
+
 def test_emergency_response_formatting():
     """
     Emergency and urgent responses must contain required fields.

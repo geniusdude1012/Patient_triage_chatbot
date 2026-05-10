@@ -1,9 +1,3 @@
-"""
-Backend/services/transcriber.py
-─────────────────────────────────
-Sends recorded audio bytes to OpenAI Whisper API.
-Returns transcribed text string.
-"""
 
 import io
 from openai import OpenAI

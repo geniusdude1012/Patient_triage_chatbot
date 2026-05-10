@@ -1,11 +1,4 @@
-"""
-conftest.py
-────────────
-pytest configuration file.
-Adds project root to sys.path so all Backend imports
-work correctly when pytest runs from any directory.
-"""
- 
+
 import sys
 import os
  

@@ -42,7 +42,7 @@ Input:  "{user_input}"
 Output:"""
 
 
-# ── 3. Department fallback prompt ─────────────────────────────────────────────
+# ── 3. Department fallback prompt 
 def build_department_fallback_prompt(symptoms: list, priority: str) -> str:
     urgency_map = {
         "emergency": "Emergency",

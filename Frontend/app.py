@@ -1,10 +1,3 @@
-"""
-Frontend/app.py
-────────────────
-Main Streamlit entry point.
-Mic button sits inline with the chat input — same row, right side.
-"""
-
 import streamlit as st
 import uuid
 from api_client import send_message, clear_session, start_session, end_session
@@ -14,23 +7,23 @@ from components.voice_input import show_voice_input
 
 st.set_page_config(page_title="Patient Triage Assistant", page_icon="🏥")
 
-# ── Inject CSS — style mic button to look like an icon ────────────────────────
 st.markdown("""
     <style>
-    /* Fix chat input to always stay at bottom */
+    /* Sidebar is ~244px wide — push input to start after it */
     .stChatInput {
         position: fixed !important;
         bottom: 0 !important;
-        left: 0 !important;
+        left: 244px !important;
         right: 0 !important;
         z-index: 999 !important;
         padding: 1rem !important;
         background: var(--background-color) !important;
     }
-    /* Add padding so messages don't hide behind fixed input */
+
     .main .block-container {
         padding-bottom: 100px !important;
     }
+
     /* Make audio input compact */
     div[data-testid="stAudioInput"] {
         max-width: 60px !important;
@@ -38,7 +31,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ── Session state initialisation ──────────────────────────────────────────────
+# Session state initialisation
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
 if "messages" not in st.session_state:
@@ -53,26 +46,22 @@ if "voice_counter" not in st.session_state:
     st.session_state.voice_counter = 0
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# WELCOME PAGE
-# ══════════════════════════════════════════════════════════════════════════════
 if not st.session_state.started:
     show_welcome_page()
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # CHAT PAGE
-# ══════════════════════════════════════════════════════════════════════════════
+
 else:
     st.title("🏥 Patient Triage Assistant")
 
-    # ── Sidebar ────────────────────────────────────────────────────────────────
+    # Sidebar
     with st.sidebar:
         st.markdown(f"### 👤 {st.session_state.username}")
         st.caption(f"Session: {st.session_state.session_id[:8]}...")
         st.divider()
 
-        if st.button("🔚 End Session", use_container_width=True, type="primary"):
+        if st.button("🔚 New Chat", use_container_width=True, type="primary"):
             end_session(st.session_state.session_id)
             st.session_state.started       = False
             st.session_state.username      = ""
@@ -91,7 +80,7 @@ else:
             st.session_state.voice_counter = 0
             st.rerun()
 
-    # ── Greeting — shown once ──────────────────────────────────────────────────
+    # Greeting — shown once
     if not st.session_state.greeted:
         greeting = f"Hi **{st.session_state.username}**! 👋 What can I help you with today?"
         st.session_state.messages.append({
@@ -101,13 +90,12 @@ else:
         })
         st.session_state.greeted = True
 
-    # ── Message history ────────────────────────────────────────────────────────
+    # Message history
     for msg in st.session_state.messages:
         render_message(msg["role"], msg["content"], msg.get("priority", "low"))
 
-    # ══════════════════════════════════════════════════════════════════════════
     # INPUT ROW — text input (left) + mic icon (right)
-    # ══════════════════════════════════════════════════════════════════════════
+    
     # Chat input at top level — always sticks to bottom
     user_input = st.chat_input("Describe your symptoms...")
 
@@ -115,9 +103,9 @@ else:
     with st.container():
         voice_key  = f"mic_{st.session_state.voice_counter}"
     voice_text = show_voice_input(key=voice_key)
-    # ══════════════════════════════════════════════════════════════════════════
+    
     # SHARED INPUT HANDLER
-    # ══════════════════════════════════════════════════════════════════════════
+   
     def handle_input(text: str, is_voice: bool = False):
         display_text = f"🎙️ {text}" if is_voice else text
 
@@ -144,11 +132,11 @@ else:
         })
         render_message("assistant", response, priority)
 
-    # ── Handle typed input ─────────────────────────────────────────────────────
+    # Handle typed input
     if user_input:
         handle_input(user_input, is_voice=False)
 
-    # ── Handle voice input ─────────────────────────────────────────────────────
+    # Handle voice input
     if voice_text:
         st.toast(f"🗣️ Heard: \"{voice_text}\"", icon="🎙️")
         handle_input(voice_text, is_voice=True)

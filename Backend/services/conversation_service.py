@@ -1,11 +1,3 @@
-"""
-services/conversation_service.py
-──────────────────────────────────
-Handles LLM conversation for moderate/low priority cases.
-Maintains chat history and injects department context
-so the LLM references the correct department in its response.
-"""
-
 from langchain_core.messages import HumanMessage, AIMessage
 from Backend.chains.conversational_chain import chain
 from Backend.utils.state_manager import chat_history

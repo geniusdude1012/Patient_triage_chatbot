@@ -1,16 +1,3 @@
-"""
-main.py
-────────
-Entry point for the Patient Triage Chatbot.
-
-Responsibilities:
-- Start the chatbot session
-- Handle user commands (quit / clear / reload)
-- Call triage_engine.process() for every patient message
-
-All business logic lives in Backend/services/.
-This file stays clean — it only handles I/O.
-"""
 
 from dotenv import load_dotenv
 load_dotenv()

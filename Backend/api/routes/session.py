@@ -1,11 +1,3 @@
-"""
-Backend/api/routes/session.py
-───────────────────────────────
-FastAPI routes for session lifecycle management.
-
-POST /api/session/start  → registers username with session
-POST /api/session/end    → saves history to JSON, clears session
-"""
 
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -15,7 +7,7 @@ from Backend.utils.history_writer import save_session
 router = APIRouter()
 
 
-# ── Request models ─────────────────────────────────────────────────────────────
+# ── Request models 
 class SessionStartRequest(BaseModel):
     session_id: str
     username:   str
@@ -25,7 +17,7 @@ class SessionEndRequest(BaseModel):
     session_id: str
 
 
-# ── POST /api/session/start ────────────────────────────────────────────────────
+# ── POST /api/session/start 
 @router.post("/session/start")
 async def start_session(request: SessionStartRequest):
     from datetime import datetime
@@ -48,7 +40,7 @@ async def start_session(request: SessionStartRequest):
     }
 
 
-# ── POST /api/session/end ──────────────────────────────────────────────────────
+# ── POST /api/session/end 
 @router.post("/session/end")
 async def end_session(request: SessionEndRequest):
     """

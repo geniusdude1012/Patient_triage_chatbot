@@ -7,6 +7,6 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
-    priority: str        # critical / urgent / routine / low
+    priority: str        
     department: str | None = None
     session_id: str

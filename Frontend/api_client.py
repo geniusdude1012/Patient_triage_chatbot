@@ -1,13 +1,7 @@
-"""
-Frontend/api_client.py
-───────────────────────
-All HTTP calls from Streamlit to FastAPI.
-Single place for all API communication.
-"""
-
 import httpx
 
 API_URL = "http://localhost:8000/api"
+
 import sys, os
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:

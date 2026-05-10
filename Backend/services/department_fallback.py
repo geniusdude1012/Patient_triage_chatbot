@@ -1,11 +1,3 @@
-"""
-services/department_fallback.py
-─────────────────────────────────
-When department_matcher finds no JSON match,
-this service asks the LLM to suggest the best department.
-
-Returns a formatted department block string.
-"""
 
 import json
 from Backend.models.llm_models import extractor_llm

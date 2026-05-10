@@ -1,21 +1,13 @@
-"""
-services/department_matcher.py
-────────────────────────────────
-Matches extracted symptoms against department_info.json
-using OpenAI embeddings + cosine similarity.
-
-Returns the best matching department or None if no match found.
-"""
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from Backend.config.loaders import department_cfg
 from Backend.models.llm_models import embeddings_model
 
-# ── Similarity threshold ───────────────────────────────────────────────────────
+# ── Similarity threshold 
 # Lower than emergency threshold — departments are broader matches
 DEPT_THRESHOLD = 0.88
-# ── Pre-embed all department examples at startup ───────────────────────────────
+# ── Pre-embed all department examples at startup 
 print("   Embedding department keywords...", end=" ")
 
 DEPARTMENT_DATA: dict = {}

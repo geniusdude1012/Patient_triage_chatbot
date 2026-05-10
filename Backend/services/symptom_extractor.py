@@ -1,9 +1,3 @@
-"""
-services/symptom_extractor.py
-──────────────────────────────
-Uses LLM to extract standardized medical symptoms
-from any natural language input — slang, informal, multilingual.
-"""
 
 from Backend.models.llm_models import extractor_llm
 from Backend.models.prompts import build_symptom_extraction_prompt

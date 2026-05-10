@@ -1,10 +1,3 @@
-"""
-Backend/api/routes/chat.py
-────────────────────────────
-POST /api/chat  — main triage endpoint
-POST /api/clear — clears session without saving
-"""
-
 from fastapi import APIRouter
 from Backend.api.schemas import ChatRequest, ChatResponse
 from Backend.api.session_store import get_session, clear_session, append_message
@@ -63,9 +56,9 @@ async def _book_hmis_appointment(session: dict) -> dict:
         return {"status": "failed"}
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # SINGLE /chat endpoint
-# ══════════════════════════════════════════════════════════════════════════════
+
 @router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     """
@@ -86,9 +79,8 @@ async def chat(request: ChatRequest):
     user_msg = request.message.strip()
     append_message(request.session_id, "user", user_msg)
 
-    # ══════════════════════════════════════════════════════════════════════════
+    
     # APPOINTMENT FLOW — intercept yes/no when waiting for confirmation
-    # ══════════════════════════════════════════════════════════════════════════
     if session.get("awaiting_appointment"):
 
         if _wants_appointment(user_msg):
@@ -141,12 +133,11 @@ async def chat(request: ChatRequest):
             session_id=request.session_id
         )
 
-    # ══════════════════════════════════════════════════════════════════════════
+   
     # NORMAL TRIAGE FLOW
-    # ══════════════════════════════════════════════════════════════════════════
     response = process(request.message)
 
-    # ── Safety check — process() must never return None ───────────────────────
+    # ── Safety check — process() must never return None 
     if not response:
         response = "I'm sorry, something went wrong. Please describe your symptoms again."
 
@@ -154,7 +145,7 @@ async def chat(request: ChatRequest):
     session["chat_history"]         = list(state.chat_history)
     session["accumulated_symptoms"] = list(state.accumulated_symptoms)
 
-    # ── Detect priority from response emojis ──────────────────────────────────
+    # ── Detect priority from response emojis 
     priority = "low"
     if   "🔴" in response: priority = "critical"
     elif "🟠" in response: priority = "urgent"
@@ -162,7 +153,7 @@ async def chat(request: ChatRequest):
 
     session["last_priority"] = priority
 
-    # ── If department shown → ask about appointment ────────────────────────────
+    # ── If department shown → ask about appointment 
     if "Department Routing" in response or "DEPARTMENT ROUTING" in response:
         dept = _extract_dept_from_response(response, session)
         if dept:
@@ -181,7 +172,7 @@ async def chat(request: ChatRequest):
     )
 
 
-# ── Clear session ──────────────────────────────────────────────────────────────
+# ── Clear session 
 @router.post("/clear/{session_id}")
 async def clear(session_id: str):
     """Clears session from memory without saving history."""
