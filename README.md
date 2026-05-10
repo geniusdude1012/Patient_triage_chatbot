@@ -165,8 +165,8 @@ source venv/bin/activate
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Create .env file
-echo OPENAI_API_KEY=sk-your-key-here > .env
+# 4. Create it cleanly in UTF-8
+Set-Content -Path .env -Value "OPENAI_API_KEY=sk-your-key-here" -Encoding utf8 -> Close and reopen vscode after setting up .env file
 
 # 5. Start the FastAPI backend (terminal 1)
 uvicorn Backend.api.app:app --reload
@@ -255,8 +255,8 @@ No Python setup needed. Just Docker Desktop and your API key.
 git clone https://github.com/geniusdude1012/Patient_triage_chatbot.git
 cd Patient_triage_chatbot
 
-# 2. Create your .env file
-echo OPENAI_API_KEY=sk-your-key-here > .env
+# 2. Create it cleanly in UTF-8
+Set-Content -Path .env -Value "OPENAI_API_KEY=sk-your-key-here" -Encoding utf8
 
 # 3. Build and start everything
 docker compose up --build
