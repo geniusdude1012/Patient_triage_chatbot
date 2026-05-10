@@ -166,7 +166,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # 4. Create it cleanly in UTF-8
-Set-Content -Path .env -Value "OPENAI_API_KEY=sk-your-key-here" -Encoding utf8
+Set-Content -Path .env -Value "OPENAI_API_KEY=sk-your-key-here" -Encoding utf8 -> Close and reopen vscode after setting up .env file
 
 # 5. Start the FastAPI backend (terminal 1)
 uvicorn Backend.api.app:app --reload
