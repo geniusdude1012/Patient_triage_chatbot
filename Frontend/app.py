@@ -17,14 +17,23 @@ st.set_page_config(page_title="Patient Triage Assistant", page_icon="🏥")
 # ── Inject CSS — style mic button to look like an icon ────────────────────────
 st.markdown("""
     <style>
-    div[data-testid="stAudioInput"] {
-        margin-top: 0px !important;
-        padding-top: 0px !important;
+    /* Fix chat input to always stay at bottom */
+    .stChatInput {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 999 !important;
+        padding: 1rem !important;
+        background: var(--background-color) !important;
     }
-    div[data-testid="column"]:last-child {
-        display: flex;
-        align-items: flex-end;
-        padding-bottom: 6px;
+    /* Add padding so messages don't hide behind fixed input */
+    .main .block-container {
+        padding-bottom: 100px !important;
+    }
+    /* Make audio input compact */
+    div[data-testid="stAudioInput"] {
+        max-width: 60px !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -99,15 +108,13 @@ else:
     # ══════════════════════════════════════════════════════════════════════════
     # INPUT ROW — text input (left) + mic icon (right)
     # ══════════════════════════════════════════════════════════════════════════
-    input_col, mic_col = st.columns([11, 1])
+    # Chat input at top level — always sticks to bottom
+    user_input = st.chat_input("Describe your symptoms...")
 
-    with input_col:
-        user_input = st.chat_input("Describe your symptoms...")
-
-    with mic_col:
+    # Mic recorder in a container above the input
+    with st.container():
         voice_key  = f"mic_{st.session_state.voice_counter}"
-        voice_text = show_voice_input(key=voice_key)
-
+    voice_text = show_voice_input(key=voice_key)
     # ══════════════════════════════════════════════════════════════════════════
     # SHARED INPUT HANDLER
     # ══════════════════════════════════════════════════════════════════════════

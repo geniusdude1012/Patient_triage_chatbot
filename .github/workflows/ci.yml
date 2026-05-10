@@ -1,0 +1,52 @@
+name: Patient Triage Chatbot — CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout code ──────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # ── 2. Set up Python ──────────────────────────────────────────────────────
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      # ── 3. Cache dependencies ─────────────────────────────────────────────────
+      - name: Cache pip packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      # ── 4. Install dependencies ───────────────────────────────────────────────
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest httpx pytest-asyncio
+
+      # ── 5. Set dummy env variables (no real keys needed for mocked tests) ─────
+      - name: Set environment variables
+        run: |
+          echo "OPENAI_API_KEY=sk-test-dummy-key" >> $GITHUB_ENV
+          echo "HMIS_API_KEY=hmis-test-key-2026"  >> $GITHUB_ENV
+
+      # ── 6. Run pytest ─────────────────────────────────────────────────────────
+      - name: Run automated tests
+        run: |
+          pytest tests/test_triage.py -v --tb=short
+
+      # ── 7. Upload test report ─────────────────────────────────────────────────
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: test-report.xml

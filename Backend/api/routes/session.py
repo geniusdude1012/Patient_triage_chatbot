@@ -28,19 +28,16 @@ class SessionEndRequest(BaseModel):
 # ── POST /api/session/start ────────────────────────────────────────────────────
 @router.post("/session/start")
 async def start_session(request: SessionStartRequest):
-    """
-    Registers a username with a session.
-    Called from Streamlit when patient clicks Start on welcome page.
-    Creates session in session_store with username + start_time.
-    """
     from datetime import datetime
 
     session = get_session(request.session_id)
-    session["username"]   = request.username
-    session["start_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    session["session_id"] = request.session_id
-    session["messages"]   = []      # full message log for history
-    session["last_priority"] = "low"
+    session["username"]              = request.username
+    session["start_time"]            = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    session["session_id"]            = request.session_id
+    session["messages"]              = []
+    session["last_priority"]         = "low"
+    session["awaiting_appointment"]  = False    # ← ADD
+    session["last_department"]       = ""       # ← ADD
 
     print(f"✅ Session started — user: {request.username} | id: {request.session_id[:8]}")
 
