@@ -19,7 +19,8 @@ def get_session(session_id: str) -> dict:
         "messages":              [],
         "last_priority":         "low",
         "awaiting_appointment":  False,   
-        "last_department":       ""       
+        "last_department":       "" ,  
+        "message_count":         0     
     }
     return sessions[session_id]
 

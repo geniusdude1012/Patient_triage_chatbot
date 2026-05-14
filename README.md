@@ -334,6 +334,8 @@ numpy
 scikit-learn
 python-dotenv
 pydantic
+pytest
+dotenve
 ```
 
 ---

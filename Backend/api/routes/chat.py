@@ -4,6 +4,7 @@ from Backend.api.session_store import get_session, clear_session, append_message
 from Backend.services.triage_engine import process
 import Backend.utils.state_manager as state
 import httpx
+from Backend.config.settings import MAX_MESSAGES_PER_SESSION, MAX_MESSAGE_LENGTH
 
 router = APIRouter()
 
@@ -77,6 +78,43 @@ async def chat(request: ChatRequest):
     state.accumulated_symptoms[:] = session["accumulated_symptoms"]
 
     user_msg = request.message.strip()
+    
+    # CHECK 1 — Message too long
+
+    if len(user_msg) > MAX_MESSAGE_LENGTH:
+        return ChatResponse(
+            response=(
+                f"⚠️ Your message is too long "
+                f"(max {MAX_MESSAGE_LENGTH} characters). "
+                f"Please describe your symptoms more briefly."
+            ),
+            priority=session.get("last_priority", "low"),
+            session_id=request.session_id
+        )
+
+    # CHECK 2 — Session message limit reached
+
+    session["message_count"] = session.get("message_count", 0) + 1
+
+    if session["message_count"] > MAX_MESSAGES_PER_SESSION:
+        dept = session.get("last_department", "the appropriate department")
+        response = (
+            f"⏱️ **Session limit reached.**\n\n"
+            f"This triage session has reached its maximum of "
+            f"**{MAX_MESSAGES_PER_SESSION} messages**.\n\n"
+            f"Based on our conversation, please visit: **{dept}**\n\n"
+            f"Click **End Session** to save your history "
+            f"or **Clear conversation** to start a fresh session.\n\n"
+            f"> ⚠️ *This is AI-assisted triage and not a medical diagnosis.*"
+        )
+        append_message(request.session_id, "bot", response)
+        return ChatResponse(
+            response=response,
+            priority=session.get("last_priority", "low"),
+            session_id=request.session_id
+        )
+
+    
     append_message(request.session_id, "user", user_msg)
 
     

@@ -4,6 +4,7 @@ from api_client import send_message, clear_session, start_session, end_session
 from components.chat_ui import render_message
 from components.welcome_page import show_welcome_page
 from components.voice_input import show_voice_input
+from Backend.config.settings import MAX_MESSAGE_LENGTH, MAX_MESSAGES_PER_SESSION
 
 st.set_page_config(page_title="Patient Triage Assistant", page_icon="🏥")
 
@@ -59,6 +60,24 @@ else:
     with st.sidebar:
         st.markdown(f"### 👤 {st.session_state.username}")
         st.caption(f"Session: {st.session_state.session_id[:8]}...")
+        
+         # ── Message counter ────────────────────────────────
+        user_messages = [
+            m for m in st.session_state.messages
+            if m["role"] == "user"
+        ]
+        msg_count  = len(user_messages)
+        msg_limit  = MAX_MESSAGES_PER_SESSION
+        remaining  = max(0, msg_limit - msg_count)   # max(0, ...) prevents negative
+        bar_value  = min(msg_count / msg_limit, 1.0)
+
+        st.progress(bar_value, text=f"Messages: {msg_count}/{msg_limit}")
+
+        
+        if remaining <= 5:
+            st.warning(f"⚠️ {remaining} messages remaining")
+
+        
         st.divider()
 
         if st.button("🔚 New Chat", use_container_width=True, type="primary"):
@@ -74,9 +93,8 @@ else:
         st.divider()
 
         if st.button("🔄 Clear conversation", use_container_width=True):
-            clear_session(st.session_state.session_id)
+            # ONLY clear the display — backend session stays completely intact
             st.session_state.messages      = []
-            st.session_state.greeted       = False
             st.session_state.voice_counter = 0
             st.rerun()
 
