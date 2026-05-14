@@ -3,26 +3,12 @@ langchain
 langchain-core
 langchain-openai
 langchain-community
-
-# ── OpenAI ────────────────────────────────────────────────────────────────────
 openai
-
-# ── FastAPI + server ──────────────────────────────────────────────────────────
 fastapi
 uvicorn[standard]
-
-# ── Streamlit ─────────────────────────────────────────────────────────────────
 streamlit
-
-# ── HTTP client (Streamlit → FastAPI calls) ───────────────────────────────────
-httpx
-
-# ── ML / embeddings ───────────────────────────────────────────────────────────
 numpy
 scikit-learn
-
-# ── Environment variables ─────────────────────────────────────────────────────
-python-dotenv
-
-# ── Data validation (FastAPI schemas) ────────────────────────────────────────
+dotenv
 pydantic
+pytest
